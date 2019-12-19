@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DrugsMapper">
+    <sql id="saveColums">
+        goods_name,zh_name,en_name,dosage_form,`use`,common_dosage,useage,adrerse_reactions_common,
+        adrerse_reactions_serious,`storage`,window_tell,effective_time,monitoring_parameters,guidance
+    </sql>
+    <insert id="insertDrugs" useGeneratedKeys="true" keyProperty="id">
+        insert into drugs (
+        <include refid="saveColums"/>
+        ) values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.goodsName}, #{item.zhName}, #{item.enName}, #{item.dosageForm}, #{item.use},
+            #{item.commonDoseosage}, #{item.useage}, #{item.adrerseReactionsCommon},
+            #{item.adrerseReactionsSerious}, #{item.storage}, #{item.windowTell},
+            #{item.effectiveTime}, #{item.monitoringParameters}, #{item.guidance}
+            )
+        </foreach>
+    </insert>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.demo.entity.Drugs">
+        insert into drugs (
+        <include refid="saveColums"/>
+        ) values
+        (#{goodsName}, #{zhName}, #{enName}, #{dosageForm}, #{use},
+        #{commonDoseosage}, #{useage}, #{adrerseReactionsCommon},
+        #{adrerseReactionsSerious}, #{storage}, #{windowTell},
+        #{effectiveTime}, #{monitoringParameters}, #{guidance}
+        )
+    </insert>
+</mapper>
